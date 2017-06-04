@@ -6,6 +6,7 @@ HOST='IP'
 USER='Username'
 PORT='Port'
 read -p "Password: " PASSWORD
+read -p "Destination: " DESTINATION
 #
 # FTP Download
 #
@@ -18,7 +19,6 @@ EOF
 #
 # Unrar, rename, copy, delete
 #
-read -p "Destination: " DESTINATION
 mkdir $DESTINATION
 find . -iname '*.rar' | while read file; do
  (
