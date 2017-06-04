@@ -2,17 +2,34 @@
 #
 # FTP LOGIN
 #
-HOST='IP-Adress'
+HOST='IP'
 USER='Username'
-PORT='port'
+PORT='Port'
 read -p "Password: " PASSWORD
 #
+# FTP Download
+#
 lftp -u $USER,$PASSWORD -p $PORT $HOST << EOF
-set ssl:verify-certificate no #When you Server have an self sined certificate
-cd /what/ever/you/like/to/download
-ls
-mirror downloads
+set ssl:verify-certificate no
+cd path/path/
+mirror --directory=path.S01E*/
 bye
 EOF
-unrar e -r *.rar
+#
+# Unrar, rename, copy, delete
+#
+read -p "Destination: " DESTINATION
+mkdir $DESTINATION
+find . -iname '*.rar' | while read file; do
+ (
+   DIRNAME=$(dirname "${file}")
+   BASENAME=$(basename "${file}")
+   cd "${DIRNAME}"
+   unrar x "${BASENAME}"
+   NEW=$DIRNAME
+   mv *.mkv  "${NEW}".mkv
+   mv *.mkv /home/USER/$ZIELVERZEICHNIS
+   rm -rf /home/USER/"${DIRNAME}"
+)
+done
 exit
