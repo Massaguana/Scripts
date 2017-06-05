@@ -28,7 +28,7 @@ find . -iname '*.rar' | while read file; do
    unrar x "${BASENAME}"
    NEW=$DIRNAME
    mv *.mkv  "${NEW}".mkv
-   mv *.mkv "/home/USER/$ZIELVERZEICHNIS"
+   mv *.mkv /home/USER/"$DESTINATION"
    rm -rf /home/USER/"${DIRNAME}"
 )
 done
