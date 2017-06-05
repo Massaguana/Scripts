@@ -32,4 +32,11 @@ find . -iname '*.rar' | while read file; do
    rm -rf /home/USER/"${DIRNAME}"
 )
 done
+#
+# RClone Files to GSuite
+#
+rclone copy -v "RcloneIng" "Remote:Path/$DESTINATION"
+cd RcloneIng
+rm -rf *.mkv
+#
 exit
