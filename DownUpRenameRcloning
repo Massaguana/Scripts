@@ -1,42 +1,47 @@
 #!/bin/sh
 #
-# FTP LOGIN
+# FTP LOGIN                     #  #  #   For Single Movies/ Episodes  #  #  #
 #
-HOST='IP'
-USER='Username'
-PORT='Port'
+HOST='IP-ADRESS'
+USER='USERNAME'
+PORT='PORT'
 read -p "Password: " PASSWORD
-read -p "Destination: " DESTINATION
 #
 # FTP Download
 #
 lftp -u $USER,$PASSWORD -p $PORT $HOST << EOF
 set ssl:verify-certificate no
-cd path/path/
-mirror --directory=path.S01E*/
+cd /archive/tv-720p-ger/
+#cd /archive/x264-1080p-ger/
+mirror --directory=Directory Name
 bye
 EOF
 #
-# Unrar, rename, copy, delete
+# Unrar, rename, copy, delete, chmod
 #
-mkdir "$DESTINATION"
 find . -iname '*.rar' | while read file; do
  (
    DIRNAME=$(dirname "${file}")
    BASENAME=$(basename "${file}")
    cd "${DIRNAME}"
-   unrar x "${BASENAME}"
+   unrar x -o- "${BASENAME}"
    NEW=$DIRNAME
+   chmod -v 644 *.mkv      
    mv *.mkv  "${NEW}".mkv
-   mv *.mkv /home/USER/"$DESTINATION"
-   rm -rf /home/USER/"${DIRNAME}"
+   mv *.mkv /home/path/to/RcloneIng/temp/ 
+   rm -rf /home/path/to/RcloneIng/"${DIRNAME}"
 )
 done
 #
+# Rename File "Filebot"
+#
+filebot -non-strict -script fn:amc /home/path/to/RcloneIng/temp/*.mkv --output /home/path/to/RcloneIng/temp/ --def @/home/path/to/RcloneIng/filebot$
+#
 # RClone Files to GSuite
 #
-rclone copy -v "RcloneIng" "Remote:Path/$DESTINATION"
-cd RcloneIng
-rm -rf *.mkv
+rclone copy -v "temp" "GSuiteCrypt:Plex Cloud Crypted/TV-Serien/"
+#rclone copy -v "temp" "GSuiteCrypt:Plex Cloud Crypted/x264/"
+cd temp
+rm -rf *
 #
 exit
