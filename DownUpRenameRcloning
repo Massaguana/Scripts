@@ -1,20 +1,26 @@
-#!/bin/sh
+##!/bin/bash -i
 #
-# FTP LOGIN                     #  #  #   For Single Movies/ Episodes  #  #  #
+# FTP LOGIN                     #  #  #   DAS SCRIPT IST NUR FÜR EINZELNE Filme/ Episoden GEEIGNET #  #  #
 #
-HOST='IP-ADRESS'
-USER='USERNAME'
-PORT='PORT'
-read -p "Password: " PASSWORD
+HOST='IP'
+USER='Name'
+PORT='Port'
+PASSWORD='PW'
+#read -p "Password: " PASSWORD
 #
 # FTP Download
 #
 lftp -u $USER,$PASSWORD -p $PORT $HOST << EOF
-set ssl:verify-certificate no
-cd /archive/tv-720p-ger/
-#cd /archive/x264-1080p-ger/
-mirror --directory=Directory Name
-bye
+set ssl:verify-certificate no#
+#
+#cd /RECENT/TV-1080P/
+#
+mirror --directory=Der.Medicus.II.2025.GERMAN \
+        -X '*.nfo' \
+        -X 'Sample/' \
+        -X '.*\.tmp$' \
+        -X '*[*'
+#
 EOF
 #
 # Unrar, rename, copy, delete, chmod
@@ -25,23 +31,19 @@ find . -iname '*.rar' | while read file; do
    BASENAME=$(basename "${file}")
    cd "${DIRNAME}"
    unrar x -o- "${BASENAME}"
+   chmod -v 644 *.mkv
    NEW=$DIRNAME
-   chmod -v 644 *.mkv      
-   mv *.mkv  "${NEW}".mkv
-   mv *.mkv /home/path/to/RcloneIng/temp/ 
-   rm -rf /home/path/to/RcloneIng/"${DIRNAME}"
+   mv *.mkv "${NEW}".mkv
+   mv *.mkv "/Users/*****/-={ Temp }=-/RCloning/Temp/"
+#   rm -rf "/Users/******/-={ Temp }=-/RCloning/"${DIRNAME}"
 )
 done
 #
 # Rename File "Filebot"
 #
-filebot -non-strict -script fn:amc /home/path/to/RcloneIng/temp/*.mkv --output /home/path/to/RcloneIng/temp/ --def @/home/path/to/RcloneIng/filebot$
+filebot --log all --lang German -non-strict -script fn:amc /Users/*****/-\=\{\ Temp\ \}\=-/RCloning/Temp/*.mkv --output "/Users/*****/-={ Temp }=-/RCloning/Temp/"  --def @"/Users/>
 #
-# RClone Files to GSuite
 #
-rclone copy -v "temp" "GSuiteCrypt:Plex Cloud Crypted/TV-Serien/"
-#rclone copy -v "temp" "GSuiteCrypt:Plex Cloud Crypted/x264/"
-cd temp
-rm -rf *
 #
 exit
+*
