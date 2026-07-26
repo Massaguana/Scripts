@@ -1,0 +1,5 @@
+.ftp_credentials
+.DS_Store
+Temp/
+*.log
+FileBot_License_*.psm

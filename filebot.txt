@@ -1,0 +1,2 @@
+movieFormat={ny}/{ny}{' CD'+pi}{subt} - [GERMAN{fn.after(/German/)}]
+seriesFormat={n} ({y})/{episode.special ? 'Specials' : 'Season '+s.pad(2)}/{n} ({y}) - {episode.special ? 's00e'+special.pad(2) : s00e00} - {t.replaceAll(/[`´‘’ʻ]/, /'/).replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang} - [GERMAN{fn.after(/German/)}]
