@@ -9,12 +9,15 @@ source "$SCRIPT_DIR/.ftp_credentials"
 #
 lftp -u $USER,$PASSWORD -p $PORT $HOST << EOF
 set ssl:verify-certificate no
-#cd /RECENT/X264-1080P/
-#cd /ARCHIVE/X264-1080P/
-#cd /RECENT/AVC/
+
 cd /RECENT/TV-1080P/
-#cd /ARCHIVE2/REMOTE1/SERIEN/X264-1080P-DE/n/NCIS/S20/
-#cd /ARCHIVE2/REMOTE1/MOVIES/X264-1080P-DE/d/
+#cd /RECENT/TV-720P/
+#cd /RECENT/TV-2160P/
+
+#cd /RECENT/X264-1080P/
+#cd /RECENT/X265-2160P/
+
+cd /RECENT/P2P-CINE/REQ/
 
 mirror --directory=Silo.S03E04*
 
