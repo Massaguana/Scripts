@@ -1,13 +1,11 @@
-.ftp_credentials
 .DS_Store
-Temp/
+.ftp_credentials
+.sync_state
 *.log
 FileBot_License_*.psm
 serien_index.txt
 serien_index.txt.date
-serien_watch.txt
-serien_index.txt
-serien_index.txt.date
 serien_pending.txt
 serien_watch.txt
-.sync_state
+Temp/
+*.tmp

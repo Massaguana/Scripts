@@ -17,9 +17,9 @@ cd /RECENT/TV-1080P/
 #cd /RECENT/X264-1080P/
 #cd /RECENT/X265-2160P/
 
-cd /RECENT/P2P-CINE/REQ/
+#cd /RECENT/P2P-CINE/REQ/
 
-mirror --directory=Silo.S03E04*
+mirror --directory=House.of.the.Dragon.S03E07* --directory=House.of.the.Dragon.S03E08*
 
 EOF
 #
